@@ -39,7 +39,8 @@ class ProjectsInfo extends Component {
                             />
                             <Button variant="contained" color="primary" onClick={() => {
                                 this.props.history.push(
-                                    getRouteLink('projects-list')
+                                    getRouteLink('project-edit'),
+                                    { projectId: project.id }
                                 );
                             }}>
                                 View Project Info
