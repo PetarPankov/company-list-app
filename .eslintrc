@@ -1,0 +1,64 @@
+{
+	"extends": ["airbnb", "prettier", "react-app"],
+	"plugins": ["babel", "prettier"],
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaVersion": 7
+	},
+	"rules": {
+		"no-console": 1,
+		"no-alert": 1,
+		"no-debugger": 1,
+		"prettier/prettier": ["error"],
+		"linebreak-style": "off",
+		"indent": [
+			"error",
+			"tab",
+			{ "SwitchCase": 1, "ignoredNodes": ["JSXElement", "JSXElement *"] }
+		],
+		"no-shadow": "warn",
+		"no-underscore-dangle": "warn",
+		"no-param-reassign": "warn",
+		"no-prototype-builtins": "warn",
+
+		"class-methods-use-this": "warn",
+
+		"default-case": "off",
+		"radix": "off",
+
+		"import/prefer-default-export": "off",
+		"import/no-named-as-default": "off",
+		"import/no-named-as-default-member": "off",
+		"import/no-unresolved": "off",
+		"import/extensions": "warn",
+
+		"import/no-dynamic-require": "warn",
+		"react/prefer-stateless-function": "off",
+		"react/jsx-wrap-multilines": [
+			"error",
+			{ "declaration": false, "assignment": false }
+		],
+        "babel/new-cap": 1,
+		"babel/camelcase": 1,
+		"babel/no-invalid-this": 1,
+		"babel/object-curly-spacing": 0,
+		"babel/quotes": 0,
+		"babel/semi": 1,
+		"babel/no-unused-expressions": 1,
+		"babel/valid-typeof": 1,
+		"react/jsx-indent": "off",
+		"react/require-default-props": "warn",
+		"react/no-array-index-key": "warn",
+		"react/forbid-prop-types": "off",
+		"react/jsx-one-expression-per-line": "off",
+		"react/jsx-indent-props": ["error", "tab"],
+		"react/destructuring-assignment": "off",
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+		"jsx-a11y/no-static-element-interactions": "off",
+		"jsx-a11y/click-events-have-key-events": "off",
+		"no-restricted-globals": "off"
+	},
+	"env": {
+		"browser": true
+	}
+}
