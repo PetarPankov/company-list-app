@@ -1,0 +1,2 @@
+export const DELETE_PROJECT = Symbol('DELETE_PROJECT');
+export const GET_PROJECTS_BY_COMPANY_ID = Symbol('GET_PROJECTS_BY_COMPANY_ID');

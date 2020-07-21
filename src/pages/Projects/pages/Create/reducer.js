@@ -12,17 +12,9 @@ export const defaultState = fromJS({
     }
 });
 
-const editProject = (state = defaultState, action) => {
+const createProject = (state = defaultState, action) => {
     switch (action.type) {
-        case actionTypes.GET_PROJECT_BY_ID: {
-            if (action.state === 'finished') {
-                state = state
-                    .set('selectedProject', action.response);
-            }
-            return state;
-        }
-
-        case actionTypes.EDIT_PROJECT: {
+        case actionTypes.CREATE_PROJECT: {
             console.log(state.toJS());
             return state;
         }
@@ -30,7 +22,7 @@ const editProject = (state = defaultState, action) => {
         case actionTypes.GET_ALL_EMPLOYEES: {
             if (action.state === 'finished') {
                 let assignedEmployees = [];
-                const assignedEmployeesIds = state.getIn(['selectedProject', 'employeesId']).toJS();
+                const assignedEmployeesIds = [];
                 const allEmployees = action.response.toJS();
                 let newAllEmployees = [];
 
@@ -174,4 +166,4 @@ const editProject = (state = defaultState, action) => {
     return state;
 };
 
-export default editProject;
+export default createProject;

@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getCompanies, getEmployeesByCompanyId, getProjectsByCompanyId, getCompanyAddress } from './actions';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import { getCompanies, getEmployeesByCompanyId, getProjectsByCompanyId, getCompanyAddress, getEmployeeDetails } from './actions';
 
 import TreeViewComponent from './components/TreeViewComponent';
 import ProjectsInfo from './components/ProjectsInfo';
+import EmployeeDetails from './components/EmployeeDetails';
 
 class CompaniesList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           
+
         };
     }
 
@@ -26,9 +29,10 @@ class CompaniesList extends Component {
     };
 
     render() {
-        const { companies, selectedEmployees, selectedProjects, selectedCompanyAddress } = this.props;
+        const { companies, selectedEmployees, selectedProjects, selectedCompanyAddress, selectedCompanyId, employeeDetails } = this.props;
 
         const { city, country, street, state } = selectedCompanyAddress;
+        const selectedCompanyProjects = selectedProjects[selectedCompanyId] || [];
 
         return (
             <div>
@@ -37,19 +41,38 @@ class CompaniesList extends Component {
                         <TreeViewComponent
                             getCompanyInfoById={this.getCompanyInfoById}
                             selectedEmployees={selectedEmployees}
-                            selectedProjects={selectedProjects}
                             companies={companies}
+                            getEmployeeDetails={this.props.getEmployeeDetails}
                         />
                     </div>
 
                     <div style={{ flexGrow: 2 }}>
-                        {selectedProjects.length > 0 &&
-                            <div>
-                                <div style={{ marginBottom: '50px' }}>{`${city} ${country} ${street} ${state}`}</div>
 
-                                <ProjectsInfo projects={selectedProjects} />
+                        <div>
+                            {!!selectedCompanyId && <div>
+                                <div style={{ marginBottom: '50px' }}>
+                                    <ListItemText
+                                        primary={`${city} ${country} ${street} ${state}`}
+                                    />
+                                </div>
+                                {selectedCompanyProjects.length > 0 ?
+                                    <ProjectsInfo companyId={selectedCompanyId} projects={selectedCompanyProjects} /> : <div>
+                                        <ListItemText
+                                            primary={`No projects found`}
+                                        />
+                                    </div>
+                                }
                             </div>
-                        }
+                            }
+                        </div>
+
+                        <div>
+                            {Object.keys(employeeDetails).length !== 0 && <div style={{ marginTop: '50px' }}>
+                                <EmployeeDetails employeeDetails={employeeDetails} />
+                            </div>
+                            }
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -67,13 +90,16 @@ export default connect(
             companies: state.companiesList.get('companies').toJS(),
             selectedProjects: state.companiesList.get('selectedProjects').toJS(),
             selectedEmployees: state.companiesList.get('selectedEmployees').toJS(),
-            selectedCompanyAddress: state.companiesList.get('selectedCompanyAddress').toJS()
+            selectedCompanyAddress: state.companiesList.get('selectedCompanyAddress').toJS(),
+            selectedCompanyId: state.companiesList.get('selectedCompanyId'),
+            employeeDetails: state.companiesList.get('employeeDetails').toJS()
         };
     },
     {
         getCompanies,
         getEmployeesByCompanyId,
         getProjectsByCompanyId,
-        getCompanyAddress
+        getCompanyAddress,
+        getEmployeeDetails
     }
 )(CompaniesList);

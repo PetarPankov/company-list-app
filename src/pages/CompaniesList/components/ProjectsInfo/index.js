@@ -13,16 +13,8 @@ import Button from '@material-ui/core/Button';
 import { getRouteLink } from '../../../../utils/router';
 
 class ProjectsInfo extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        };
-    }
-
     render() {
-        const { projects } = this.props;
+        const { projects, companyId } = this.props;
         return (
             <div>
                 <List>
@@ -51,7 +43,8 @@ class ProjectsInfo extends Component {
 
                 <Button variant="contained" color="primary" onClick={() => {
                     this.props.history.push(
-                        getRouteLink('projects-list')
+                        getRouteLink('projects-list'),
+                        { companyId }
                     );
                 }}>
                     View All Projects
@@ -63,6 +56,7 @@ class ProjectsInfo extends Component {
 
 ProjectsInfo.propTypes = {
     projects: PropTypes.array.isRequired,
+    companyId: PropTypes.string.isRequired,
     history: PropTypes.object,
 };
 

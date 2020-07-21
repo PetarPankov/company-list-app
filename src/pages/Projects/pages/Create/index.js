@@ -7,11 +7,18 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import { getProjectById, onFieldChange, editProject, getAllEmployees, handleToggle, assignEmployeesToProject, removeEmployeesFromProject } from './actions';
+import { onFieldChange, createProject, getAllEmployees, handleToggle, assignEmployeesToProject, removeEmployeesFromProject } from './actions';
 
 import EmployeesList from '../../components/EmployeesList';
 
-class EditProject extends Component {
+class CreateProject extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        };
+    }
 
     handleCheckedRight = () => {
         this.props.removeEmployeesFromProject();
@@ -25,14 +32,13 @@ class EditProject extends Component {
         this.props.handleToggle(id, type);
     };
 
+
     onFieldChange = event => {
         const { id, value } = event.target;
         this.props.onFieldChange(value, id);
     };
 
     componentDidMount = async () => {
-        const { projectId } = this.props.history.location.state;
-        await this.props.getProjectById(projectId);
         await this.props.getAllEmployees();
     };
 
@@ -43,10 +49,10 @@ class EditProject extends Component {
             <div>
                 <Grid container spacing={2} justify="center" alignItems="center">
                     <Grid container direction="column" alignItems="center">
-                        <h1>Edit Project</h1>
+                        <h1>Create Project</h1>
 
                         <TextField style={{margin: '5px 0'}} id="name" label="Name" value={project.name} onChange={this.onFieldChange} />
-                        <TextField style={{margin: '5px 0'}} disabled id="department" label="Department" value={project.department} onChange={this.onFieldChange} />
+                        <TextField style={{margin: '5px 0'}} id="department" label="Department" value={project.department} onChange={this.onFieldChange} />
                     </Grid>
                 </Grid>
 
@@ -85,8 +91,8 @@ class EditProject extends Component {
 
                 <Grid style={{marginTop: '30px'}} container spacing={2} justify="center" alignItems="center">
                     <Grid container direction="column" alignItems="center">
-                        <Button variant="contained" color="primary" onClick={() => this.props.editProject(project)}>
-                            Edit
+                        <Button variant="contained" color="primary" onClick={() => this.props.createProject(project)}>
+                            Create
                         </Button>
                     </Grid>
                 </Grid>
@@ -97,7 +103,7 @@ class EditProject extends Component {
     };
 }
 
-EditProject.propTypes = {
+CreateProject.propTypes = {
     selectedProject: PropTypes.array.isRequired,
     allEmployees: PropTypes.array.isRequired
 };
@@ -106,19 +112,18 @@ export default withRouter(
     connect(
         state => {
             return {
-                project: state.projects.getIn(['editProject', 'selectedProject']).toJS(),
-                allEmployees: state.projects.getIn(['editProject', 'allEmployees']).toJS(),
-                assignedEmployees: state.projects.getIn(['editProject', 'assignedEmployees']).toJS(),
-                checkedEmployees: state.projects.getIn(['editProject', 'checkedEmployees']).toJS()
+                project: state.projects.getIn(['createProject', 'selectedProject']).toJS(),
+                allEmployees: state.projects.getIn(['createProject', 'allEmployees']).toJS(),
+                assignedEmployees: state.projects.getIn(['createProject', 'assignedEmployees']).toJS(),
+                checkedEmployees: state.projects.getIn(['createProject', 'checkedEmployees']).toJS()
             };
         },
         {
-            getProjectById,
             onFieldChange,
-            editProject,
+            createProject,
             getAllEmployees,
             handleToggle,
             assignEmployeesToProject,
             removeEmployeesFromProject
         }
-    )(EditProject));
+    )(CreateProject));

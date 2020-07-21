@@ -4,24 +4,24 @@ export const getCompanies = () => {
     return {
         type: actionTypes.GET_COMPANIES,
         requestType: 'GET',
-        request: `/companies`
+        request: `/get-companies`
     };
 };
 
 export const getProjectsByCompanyId = companyId => {
     return {
         type: actionTypes.GET_PROJECTS_BY_COMPANY_ID,
+        requestType: 'GET',
+        request: `/get-projects-by-company-id?id=${companyId}`,
         body: { companyId }
-        //requestType: 'GET',
-        //request: `/companies`
     };
 };
 
 export const getEmployeesByCompanyId = companyId => {
     return {
         type: actionTypes.GET_EMPLOYEES_BY_COMPANY_ID,
-        //requestType: 'GET',
-        //request: `/get-employees`,
+        requestType: 'GET',
+        request: `/get-employees-by-company-id?id=${companyId}`,
         body: { companyId }
     };
 };
@@ -29,8 +29,17 @@ export const getEmployeesByCompanyId = companyId => {
 export const getCompanyAddress = companyId => {
     return {
         type: actionTypes.GET_COMPANY_ADDRESS,
-        //requestType: 'GET',
-        //request: `/get-employees`,
+        requestType: 'GET',
+        request: `/get-company-address?id=${companyId}`,
         body: { companyId }
+    };
+};
+
+export const getEmployeeDetails = id => {
+    return {
+        type: actionTypes.GET_EMPLOYEE_BY_ID,
+        requestType: 'GET',
+        request: `/get-employee-by-id?id=${id}`,
+        body: { id }
     };
 };

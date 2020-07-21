@@ -1,17 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const getProjectById = projectId => {
+export const createProject = project => {
     return {
-        type: actionTypes.GET_PROJECT_BY_ID,
-        requestType: 'GET',
-        request: `/get-project-by-id?id=${projectId}`,
-        body: { projectId }
-    };
-};
-
-export const editProject = project => {
-    return {
-        type: actionTypes.EDIT_PROJECT,
+        type: actionTypes.CREATE_PROJECT,
         body: { project }
         //requestType: 'GET',
         //request: `/companies`
